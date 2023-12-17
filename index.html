@@ -21,10 +21,15 @@
             color: white;
             text-align: center;
             margin-top: -20px;
+            margin-bottom:0;
         } 
+        h3 {
+            margin-top:0;
+            color: white;
+            text-align: center;
+        }
         .group-card {
             border: 1px solid #ddd;
-            /*padding: 10px;*/
             padding: 0;
             margin: 10px;
             border-radius: 5px;
@@ -57,14 +62,13 @@
             text-align: center;
         }
         .lineup-container {
-            display: flex; /* Utilisation de flexbox pour créer un conteneur flexible */
-            flex-wrap: nowrap; /* Empêcher le passage à la ligne */
+            display: flex;
+            flex-wrap: nowrap;
             border:1px solid red;
         }
         #lineupContainer {
-            display: flex; /* Utilisation de flexbox pour créer un conteneur flexible */
-            flex-wrap: nowrap; /* Empêcher le passage à la ligne */
-            /* border:1px solid red; */
+            display: flex;
+            flex-wrap: nowrap;
         }
         hr {
             /*position: relative;
@@ -81,55 +85,54 @@
             text-align: center;
             justify-content: center;
             position: relative;
-            /*background-color: white;
-            opacity: 0.63;*/
         }
         .band:hover {
             cursor: pointer;
+            border-color: white;
         }
         .band-name {
             font-weight: bold;
         }
         #MAINSTAGE_1, .info-title-MAINSTAGE_1{
-            background-color: #526CA7;
+            background-color: #0055a5;
         }
         #MAINSTAGE_2, .info-title-MAINSTAGE_2 {
-            background-color: #6779A0;
+            background-color: #a6a19b;
         }
         #ALTAR, .info-title-ALTAR {
-            background-color: #78403B;
+            background-color: #dc2829;
         }
         #TEMPLE, .info-title-TEMPLE {
-            background-color: #4D3559;
+            background-color: #93a7b0;
         }
         #VALLEY, .info-title-VALLEY {
-            background-color: #9E9679;
+            background-color: #ce7c19;
         }
         #WARZONE, .info-title-WARZONE {
-            background-color: #C1742B;
+            background-color: #949b1a;
         }
         .MAINSTAGE-1, .info-style-MAINSTAGE-1 {
-            background-color: #bfc9df;
+            background-color: #9eaad3;
         }
         .MAINSTAGE-2, .info-style-MAINSTAGE-2 {
-            background-color: #c7cedc;
+            background-color: #d4d2cf;
         }
         .ALTAR, .info-style-ALTAR {
-            background-color: #cfb9b6;
+            background-color: #f19e9e;
         }
         .TEMPLE, .info-style-TEMPLE {
-            background-color: #beb5c2;
+            background-color: #cbd4d8;
         }
         .VALLEY, .info-style-VALLEY {
-            background-color: #dcd8ce;
+            background-color: #eabe97;
         }
         .WARZONE, .info-style-WARZONE {
-            background-color: #e9ccb4;
+            background-color: #cecb93;
         }
         #groupInfo {
             position: fixed;
             top: 0;
-            right: -300px; /* Initial position hors de l'écran */
+            right: -300px;
             height: 100%;
             width: 300px;
             background-color: #fff;
@@ -209,15 +212,12 @@
             margin-top: 5px;
         }
         #lineupContainer {
-            transition: width 0.9s ease-in-out; /* Transition pour ajuster la largeur des colonnes */
+            transition: width 0.9s ease-in-out; 
         }   
-        /* Ajuste la largeur des colonnes lorsque la fenêtre d'information est ouverte */
         #lineupContainer.group-info-open {
-            width: calc(100% - 300px); /* Réduit la largeur des colonnes */
+            width: calc(100% - 300px);
         }
         .selected-group {
-            /*opacity: 1.0;*/
-            /*background-color: white;*/
             box-shadow:0px 0px 0px 5px rgb(255, 255, 255) inset !important;
         }
         .green-band {
@@ -307,12 +307,10 @@
             border-color: black;
             color: white;
         }
-        /* Ajoute ces styles à ton CSS */
         #playlistContainer {
             position: fixed;
             top: 0;
-            left: -180px; /* Démarre à l'extérieur de l'écran */
-            /*height: 100%;*/
+            left: -180px;
             width: 180px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -335,7 +333,6 @@
         #tabHandle {
             background-color: white;
             width: 30px;
-            /*height: 30px;*/
             right: -30px;
             top: 40%;
             position: absolute;
@@ -363,7 +360,8 @@
     <label for="aucune">Ø</label>
     <span id="reset-option" style="font-size:40px;" onclick="resetBands()">&#8634;</span>
 </div>
-<h1>Hellfest 2024 Lineup</h1>
+<h1>Hellfest 2024</h1>
+<h3>Running Order non-officiel</h3>
 
 <div class="nav-buttons">
     <div>
@@ -404,10 +402,6 @@
 </div>
 
 <script>
-
-
-
-
     const playlistContainer = document.getElementById('playlistContainer');
     const tabHandle = document.getElementById('tabHandle');
 
@@ -422,9 +416,6 @@
             playlistContainer.style.left = '-180px';
         }
     }
-
-
-
 
     if (!localStorage.allColoredBands) {
         allColoredBands = {
@@ -4832,7 +4823,7 @@
 
     lineup.sort((a, b) => {
         const daysOrder = ['Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-        const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'TEMPLE', 'ALTAR', 'VALLEY', 'WARZONE'];
+        const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
 
         if (a.DAY !== b.DAY) {
             return daysOrder.indexOf(a.DAY) - daysOrder.indexOf(b.DAY);
@@ -4889,7 +4880,7 @@
         lineupContainer.innerHTML = '';
 
         const filteredGroups = lineup.filter(group => group.DAY === day);
-        const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'TEMPLE', 'ALTAR', 'VALLEY', 'WARZONE'];
+        const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
         //const hours = ["02h", "01h", "00h", "23h", "22h", "21", "20h", "19h", "18h", "17h", "16h", "15h", "14h", "13h", "12h", "11h", "10h"];
 
         scenesOrder.forEach(scene => {
