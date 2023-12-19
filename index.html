@@ -35,6 +35,7 @@
             border-radius: 5px;
             flex: 1;
             font-size: 10px;
+            max-width: 200px;
         }
         .group-card h2 {
             text-align: center;
@@ -69,6 +70,7 @@
         #lineupContainer {
             display: flex;
             flex-wrap: nowrap;
+            justify-content: center;
         }
         hr {
             /*position: relative;
@@ -241,8 +243,7 @@
             }
         }
         .color-options {
-            margin-top: -20px;
-            margin-left: -15px;
+            margin-top: -13px;
         }
         .color-options label:hover {
             cursor: pointer;
@@ -342,23 +343,123 @@
         #tabHandle span{
             margin: 5px;
         }
-
-
-
+        #options {
+            background-color:white;
+            position: fixed;
+            width:300px;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        #options hr {
+            width: 80%;
+        }
+        #options-menu {
+            height:30px;
+            display: flex;
+        }
+        .options-item {
+            outline: 1px solid black;
+            width: 100%;
+            text-align: center;
+        }
+        .options-item span {
+            vertical-align: text-top;
+            font-size: 25px;
+            line-height: 1.3;
+        }
+        .options-item:hover {
+            background-color: rgb(208, 208, 208);
+            cursor: pointer;
+        }
+        #options-window {
+            width: 100%;
+            padding: 5px;
+            display: none;
+        }
+        #options-scenes {
+            display:flex;
+            font-size: 14px;
+        }
+        .options-scenes-column {
+            display: block;
+            width: 100%;
+        }
+        .options-section {
+            display: none;
+        }
+        .selected-option {
+            background-color : rgb(145, 145, 145) !important;
+        }
     </style>
 </head>
 <body>
-<div class="color-options">
-    <span style="font-size:40px;">&#x1F3A8;</span>
-    <input type="radio" name="color" class="color color-blue" id="blue" >
-    <label for="blue">O</label>
-    <input type="radio" name="color" class="color color-green" id="green">
-    <label for="green">O</label>
-    <input type="radio" name="color" class="color color-yellow" id="yellow" >
-    <label for="yellow">O</label>
-    <input type="radio" name="color" class="color color-empty" id="aucune" >
-    <label for="aucune">Ø</label>
-    <span id="reset-option" style="font-size:40px;" onclick="resetBands()">&#8634;</span>
+<div id="options">
+    <div id="options-menu">
+        <div class="options-item" onclick="showOptions(0)"><span style="font-size: 36px !important;line-height: 0.8">&#9881;</span></div>
+        <div class="options-item" onclick="showOptions(1)"><span>&#9836;</span></div>
+        <div class="options-item" onclick="showOptions(2)"><span>&#x1F3A8;</span></div>
+    </div>
+    <div id="options-window">
+        <div class="options-section">
+            <div id="options-scenes">
+                <div class="options-scenes-column">
+                    <input type="checkbox" id="MAINSTAGE_1-input" name="#MAINSTAGE_1" checked />
+                    <label for="MAINSTAGE_1-input">MS1</label><br>
+                    <input type="checkbox" id="MAINSTAGE_2-input" name="MAINSTAGE_2-input" checked />
+                    <label for="MAINSTAGE_2-input">MS2</label>
+                </div>
+                <div class="options-scenes-column">
+                    <input type="checkbox" id="WARZONE-input" name="WARZONE-input" checked />
+                    <label for="WARZONE-input">Warzone</label><br>
+                    <input type="checkbox" id="VALLEY-input" name="VALLEY-input" checked />
+                    <label for="VALLEY-input">Valley</label>
+                </div>
+                <div class="options-scenes-column">
+                    <input type="checkbox" id="ALTAR-input" name="ALTAR-input" checked />
+                    <label for="ALTAR-input">Altar</label><br>
+                    <input type="checkbox" id="TEMPLE-input" name="TEMPLE-input" checked />
+                    <label for="TEMPLE-input">Temple</label>
+                </div>
+            </div>
+            <hr>
+            <input type="checkbox" id="band-order-input" name="band-order-input" />
+            <label for="band-order-input">Inverser l'ordre des groupes</label><br>
+        </div>
+        <div id="options-playlists" class="options-section">
+                <div id="playlistContent">
+                    <h5>Playlist du Jeudi</h5>
+                    <ul>
+                        <li><a href="#" target="_blank">Deezer</a></li>
+                        <li><a href="#" target="_blank">Spotify</a></li>
+                    </ul>
+                    <hr>
+                    <h5>Playlist 4 jours</h5>
+                    <ul>
+                        <li><a href="https://www.deezer.com/fr/playlist/12022669371" target="_blank">Deezer</a></li>
+                        <li><a href="https://open.spotify.com/playlist/7wPC59o4wROGkb0CMfioiP" target="_blank">Spotify</a></li>
+                        <li><a href="https://music.apple.com/fr/playlist/hellfest-2024/pl.u-e98lkMmUzD9yq1Y" target="_blank">Apple Music</a></li>
+                        <li><a href="https://music.youtube.com/playlist?list=PLJGGvdXJlXvBYEW34OsuV5XkVXXvN4YZT" target="_blank">Youtube Music</a></li>
+                        <li><a href="https://www.youtube.com/playlist?list=PL-_n4BHEzsy6uxvlt2vdL2vsVnXsiEI-b" target="_blank">Youtube (setlist récentes)</a></li>
+                    </ul>
+                    <hr>
+                    <span>Incollable ? Tester vos connaissances sur <a href="https://blinest.com/rooms/hellfest-2024" target="_blank">Blinest</a></span>
+                </div>
+        </div>
+        <div id="options-colors" class="options-section">
+            <div class="color-options">
+                <input type="radio" name="color" class="color color-blue" id="blue" >
+                <label for="blue">O</label>
+                <input type="radio" name="color" class="color color-green" id="green">
+                <label for="green">O</label>
+                <input type="radio" name="color" class="color color-yellow" id="yellow" >
+                <label for="yellow">O</label>
+                <input type="radio" name="color" class="color color-empty" id="aucune" >
+                <label for="aucune">Ø</label>
+                <span id="reset-option" style="font-size:40px;color: black;" onclick="resetBands()">&#8634;</span>
+            </div>
+        </div>
+    </div>
 </div>
 <h1>Hellfest 2024</h1>
 <h3>Running Order non-officiel</h3>
@@ -379,43 +480,38 @@
     <span id="closeButton" onclick="closeGroupInfo()">&times;</span>
     <div id="groupInfoContent"></div>
 </div>
-<div id="playlistContainer" class="hidden">
-    <div id="playlistContent">
-        <h5>Playlist du Jeudi</h5>
-        <ul>
-            <li><a href="#" target="_blank">Deezer</a></li>
-            <li><a href="#" target="_blank">Spotify</a></li>
-        </ul>
-        <hr>
-        <h5>Playlist 4 jours</h5>
-        <ul>
-            <li><a href="https://www.deezer.com/fr/playlist/12022669371" target="_blank">Deezer</a></li>
-            <li><a href="https://open.spotify.com/playlist/7wPC59o4wROGkb0CMfioiP" target="_blank">Spotify</a></li>
-            <li><a href="https://music.apple.com/fr/playlist/hellfest-2024/pl.u-e98lkMmUzD9yq1Y" target="_blank">Apple Music</a></li>
-            <li><a href="https://music.youtube.com/playlist?list=PLJGGvdXJlXvBYEW34OsuV5XkVXXvN4YZT" target="_blank">Youtube Music</a></li>
-            <li><a href="https://www.youtube.com/playlist?list=PL-_n4BHEzsy6uxvlt2vdL2vsVnXsiEI-b" target="_blank">Youtube (setlist récentes)</a></li>
-        </ul>
-        <hr>
-        <span>Incollable ? Tester vos connaissances sur <a href="https://blinest.com/rooms/hellfest-2024" target="_blank">Blinest</a></span>
-    </div>
-    <div  id="tabHandle"><span>&#9836;</span></div>
-</div>
 
 <script>
+
+    function showOptions(option) {
+        let optionsItems = document.getElementsByClassName('options-item');
+        let optionsWindow = document.getElementById('options-window');
+        let selectedOption = document.getElementsByClassName('selected-option');
+
+        if (selectedOption.length > 0) {        
+            if (optionsItems[option].classList.contains('selected-option')) {
+                optionsItems[option].classList.remove("selected-option")
+                optionsWindow.style.display = "none"
+            } else {
+                selectedOption[0].classList.remove("selected-option")
+                optionsItems[option].classList.add('selected-option')
+                optionsWindow.style.display = "block"
+            }
+        } else {
+            optionsItems[option].classList.add('selected-option')
+                optionsWindow.style.display = "block"
+        }
+
+        let options = document.getElementsByClassName('options-section');
+        Array.from(options).forEach(optionText => {
+            optionText.style.display = 'none';
+        })
+        options[option].style.display = 'block';
+    }
+
     const playlistContainer = document.getElementById('playlistContainer');
     const tabHandle = document.getElementById('tabHandle');
 
-    tabHandle.addEventListener('click', togglePlaylist);
-
-    function togglePlaylist() {
-        const currentLeft = parseInt(getComputedStyle(playlistContainer).left);
-
-        if (currentLeft < 0) {
-            playlistContainer.style.left = '0';
-        } else {
-            playlistContainer.style.left = '-180px';
-        }
-    }
 
     if (!localStorage.allColoredBands) {
         allColoredBands = {
@@ -926,6 +1022,18 @@
         "PAYS": "",
         "PARTICIPATIONS": "1ère participation 2024",
         "SCENE": "VALLEY",
+        "DAY": "Samedi",
+        "DEBUT": "10h30",
+        "FIN": "11h00"
+    },
+    {
+        "GROUPE": "",
+        "STYLE": "",
+        "Bio": "",
+        "FFO": "",
+        "PAYS": "",
+        "PARTICIPATIONS": "",
+        "SCENE": "WARZONE",
         "DAY": "Samedi",
         "DEBUT": "10h30",
         "FIN": "11h00"
@@ -4860,7 +4968,6 @@
     ]
 
     displayLineupByDay(lineup, uniqueDays[currentDayIndex]);
-    hideEmpty()
 
     function displayPlaylistLinks(day) {
         document.getElementsByTagName('h5')[0].innerText = "Playlist du " + uniqueDays[currentDayIndex];
@@ -4883,9 +4990,15 @@
         const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
         //const hours = ["02h", "01h", "00h", "23h", "22h", "21", "20h", "19h", "18h", "17h", "16h", "15h", "14h", "13h", "12h", "11h", "10h"];
 
+
+        if (document.getElementById('band-order-input').checked) {
+            filteredGroups.sort((a, b) => {
+                return a.DEBUT.localeCompare(b.DEBUT);
+            });
+        }
+
         scenesOrder.forEach(scene => {
             const groupsInScene = filteredGroups.filter(group => group.SCENE === scene);
-
             const sceneColumn = document.createElement('div');
             sceneColumn.classList.add('group-card');
             sceneColumn.setAttribute('id', scene.replace(" ", "_"));
@@ -4921,7 +5034,9 @@
             sceneColumn.innerHTML = htmlContent;
             lineupContainer.appendChild(sceneColumn);
         });
-        displayColoredBands();
+        checkScenesToDisplay()
+        displayColoredBands()
+        hideEmpty()
     }
 
     function getSize(group) {
@@ -5131,6 +5246,14 @@
         currentColor = event.target.id
         if (currentColor == "aucune") {currentColor = ""}
     })
+    document.getElementById('band-order-input').addEventListener('change', function (event) {
+        displayLineupByDay(lineup, uniqueDays[currentDayIndex])
+    })
+    Array.from(document.getElementById('options-scenes').getElementsByTagName('input')).forEach((option => {
+        option.addEventListener('change', function (event) {
+            displayLineupByDay(lineup, uniqueDays[currentDayIndex])
+        })
+    }))
 
     function saveOpinion() {
         let textarea = document.getElementById('band-avis-textarea')
@@ -5162,6 +5285,19 @@
         }
     }
     
+    function checkScenesToDisplay() {
+        let scenesInput = document.getElementById('options-scenes').getElementsByTagName('input');
+        Array.from(scenesInput).forEach(sceneInput => {
+            let sceneName = sceneInput.id.split("-")[0]
+            let scene = document.getElementById(sceneName)
+            if (sceneInput.checked) {
+                scene.style.display = "block";
+            } else {
+                scene.style.display = "none";
+            }
+        })
+    }
+
 </script>
 
 </body>
