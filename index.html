@@ -3,466 +3,602 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Hellfest 2024 Lineup</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #423A38;
-            background-image: url("https://forum.hellfest.fr/uploads/default/original/1X/206db7e5235aacd96f50f2afd59af73690a3c24b.jpg");
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Safari */
-            -khtml-user-select: none; /* Konqueror HTML */
-            -moz-user-select: none; /* Old versions of Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; 
-        }
-        h1 {
-            color: white;
-            text-align: center;
-            margin-top: -20px;
-            margin-bottom:0;
-        } 
-        h3 {
-            margin-top:0;
-            color: white;
-            text-align: center;
-        }
-        .group-card {
-            border: 1px solid #ddd;
-            padding: 0;
-            margin: 10px;
-            border-radius: 5px;
-            flex: 1;
-            font-size: 10px;
-            max-width: 200px;
-        }
-        .group-card h2 {
-            text-align: center;
-            color: white;
-        }
-        .nav-buttons {
-            margin-bottom: 20px;
-            display:flex;
-            justify-content: center;
-            color: white;
-        }
-        .nav-buttons div {
-            margin: 0 20px;
-        }
-        .nav-buttons span {
-            font-size: 25px;
-        }
-        .nav-buttons button {
-            height: 100%;
-            font-size: larger;
-            border-radius: 10px;
-        }
-        .nav-day {
-            width: 100px;
-            text-align: center;
-        }
-        .lineup-container {
-            display: flex;
-            flex-wrap: nowrap;
-            border:1px solid red;
-        }
-        #lineupContainer {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-        }
-        hr {
-            /*position: relative;
-            border: 1px solid white;
-            opacity: 0.5;*/
-        }
-        .band {
-            border: 1px solid black;
-            border-radius: 5px;
-            text-align: center;
-            padding:3px;
-            margin:3px;display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-            position: relative;
-        }
-        .band:hover {
-            cursor: pointer;
-            border-color: white;
-        }
-        .band-name {
-            font-weight: bold;
-        }
-        #MAINSTAGE_1, .info-title-MAINSTAGE_1{
-            background-color: #0055a5;
-        }
-        #MAINSTAGE_2, .info-title-MAINSTAGE_2 {
-            background-color: #a6a19b;
-        }
-        #ALTAR, .info-title-ALTAR {
-            background-color: #dc2829;
-        }
-        #TEMPLE, .info-title-TEMPLE {
-            background-color: #93a7b0;
-        }
-        #VALLEY, .info-title-VALLEY {
-            background-color: #ce7c19;
-        }
-        #WARZONE, .info-title-WARZONE {
-            background-color: #949b1a;
-        }
-        .MAINSTAGE-1, .info-style-MAINSTAGE-1 {
-            background-color: #9eaad3;
-        }
-        .MAINSTAGE-2, .info-style-MAINSTAGE-2 {
-            background-color: #d4d2cf;
-        }
-        .ALTAR, .info-style-ALTAR {
-            background-color: #f19e9e;
-        }
-        .TEMPLE, .info-style-TEMPLE {
-            background-color: #cbd4d8;
-        }
-        .VALLEY, .info-style-VALLEY {
-            background-color: #eabe97;
-        }
-        .WARZONE, .info-style-WARZONE {
-            background-color: #cecb93;
-        }
-        #groupInfo {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            height: 100%;
-            width: 300px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-            transition: right 0.3s ease-in-out;
-            box-shadow: rgb(0, 255, 255) 10px 0px 5px 10px !important;
-        }
-        .info-title {
-            border-radius: 15px;
-            color: white;
-            padding: 3px;
-            margin-bottom: 5px;
-        }
-        .info-style {
-            border-radius: 10px;
-            padding: 2px 6px;
-            font-size: small;
-            text-align: right;
-        }
-        .info-pays {
-            font-size: small;
-            padding: 5px;
-        }
-        .band-ffo {
-            padding: 0px 5px;;
-            font-size: 14px;
-            font-style: italic;
-            background-color: rgb(233, 233, 233);
-            border-radius: 3px;
-        }
-        .band-bio {
-            margin: 5px;
-        }
-        .band-avis {
-            margin-top: 20px;
-        }
-        .band-avis textarea{
-            height: 100px;
-            width: 95%;
-            border-radius: 5px;
-            padding: 5px;
-            background-color: rgb(233, 233, 233);
-        }
-        .band-avis label {
-            font-size: 14px;
-        }
-        #groupInfoContent {
-            padding: 10px;
-            padding-top:30px;
-        }
-        .band-bio {
-            padding:0;
-            text-align: justify;
-            font-size: 14px;
-        }
-        #groupInfoContent h2 {
-            text-align: center;
-        }
-        #closeButton {
-            cursor: pointer;
-            font-size: 30px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            border: 3px solid black;
-            border-radius: 10px;
-            height: 30px;
-            width: 30px;
-            text-align: center;
-        }
-        .scene-image {
-            width: 50%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            margin-top: 5px;
-        }
-        #lineupContainer {
-            transition: width 0.9s ease-in-out; 
-        }   
-        #lineupContainer.group-info-open {
-            width: calc(100% - 300px);
-        }
-        .selected-group {
-            box-shadow:0px 0px 0px 5px rgb(255, 255, 255) inset !important;
-        }
-        .green-band {
-            background-color: rgb(69, 206, 69);
-            box-shadow:0px 0px 0px 5px rgb(55, 184, 12) inset;
-        }
-        .yellow-band {
-            background-color: yellow;
-            box-shadow:0px 0px 0px 5px rgb(218, 229, 58) inset;
-        }
-        .blue-band {
-            background-color: rgb(48, 154, 230);
-            box-shadow:0px 0px 0px 5px rgb(25, 113, 176) inset;
-        }
-        @keyframes adjustWidth {
-            from {
-                width: 100%;
-            }
-            to {
-                width: calc(100% - 300px);
-            }
-        }
-        .color-options {
-            margin-top: -13px;
-        }
-        .color-options label:hover {
-            cursor: pointer;
-        }
-        #reset-option {
-            color: white;
-        }
-        #reset-option:hover {
-            cursor: pointer;
-        }
-        input[type="radio"].color {
-            display: none;
-        }
-        input[type="radio"].color + label {
-            padding: 0.5rem 1rem;
-            font-size: 1.25rem;
-            line-height: 1.5;
-            border-radius: 0.3rem;
-            color: #ffffff00;
-            background-color: #6c757d;
-            border: 1px solid transparent;
-            transition: all 0.2s ease-in-out;
-        }
-        input[type="radio"].color.color-green + label {
-            background-color: #79af85;
-            border-color: #79af85;
-        }
-        input[type="radio"].color.color-green:hover + label {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
-        input[type="radio"].color.color-green:checked + label {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
-        input[type="radio"].color.color-yellow + label {
-            background-color: #edfb80;
-            border-color: #edfb80;
-        }
-        input[type="radio"].color.color-yellow:hover + label {
-            background-color: #fff700;
-            border-color: #fff700;
-        }
-        input[type="radio"].color.color-yellow:checked + label {
-            background-color: #fff700;
-            border-color: #fff700;
-        }
-        input[type="radio"].color.color-blue + label {
-            background-color: #5592a5;
-            border-color: #5592a5;
-        }
-        input[type="radio"].color.color-blue:hover + label {
-            background-color: #0c7b9d;
-            border-color: #0c7b9d;
-        }
-        input[type="radio"].color.color-blue:checked + label {
-            background-color: #0c7b9d;
-            border-color: #0c7b9d;
-        }
-        input[type="radio"].color.color-empty + label{
-            background-color: black;
-            border-color: black;
-            color: white;
-        }
-        #playlistContainer {
-            position: fixed;
-            top: 0;
-            left: -180px;
-            width: 180px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            transition: left 0.3s ease-in-out;
-        }
-
-        #playlistContent {
-            padding: 10px;
-        }
-        #playlistContent ul, #playlistContent span{
-            padding: 5px;
-            margin: 0;
-            font-size: small;
-            list-style: none;
-        }
-        #playlistContent h5{
-            font-weight: bold;
-            margin: 0;
-        }
-        #tabHandle {
-            background-color: white;
-            width: 30px;
-            right: -30px;
-            top: 40%;
-            position: absolute;
-            border-radius: 0 10px 10px 0;
-            cursor: pointer;
-        }
-        #tabHandle span{
-            margin: 5px;
-        }
-        #options {
-            background-color:white;
-            position: fixed;
-            width:300px;
-            top: 0;
-            left: 0;
-            z-index: 10;
-        }
-        #options hr {
-            width: 80%;
-        }
-        #options-menu {
-            height:30px;
-            display: flex;
-        }
-        .options-item {
-            outline: 1px solid black;
-            width: 100%;
-            text-align: center;
-        }
-        .options-item span {
-            vertical-align: text-top;
-            font-size: 25px;
-            line-height: 1.3;
-        }
-        .options-item:hover {
-            background-color: rgb(208, 208, 208);
-            cursor: pointer;
-        }
-        #options-window {
-            width: 100%;
-            padding: 5px;
-            display: none;
-        }
-        #options-scenes {
-            display:flex;
-            font-size: 14px;
-        }
-        .options-scenes-column {
-            display: block;
-            width: 100%;
-        }
-        .options-section {
-            display: none;
-        }
-        .selected-option {
-            background-color : rgb(145, 145, 145) !important;
-        }
-    </style>
 </head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0px;
+        background-color: #423A38;
+        background-image: url("https://forum.hellfest.fr/uploads/default/original/1X/206db7e5235aacd96f50f2afd59af73690a3c24b.jpg");
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; 
+    }
+    h1 {
+        color: white;
+        text-align: center;
+        margin-top: -20px;
+        margin-bottom:0;
+    }
+    h3 {
+        margin-top:0;
+        color: white;
+        text-align: center;
+    }
+    .group-card {
+        border: 1px solid #ddd;
+        padding: 0;
+        margin: 10px;
+        border-radius: 5px;
+        flex: 1;
+        font-size: 10px;
+        max-width: 200px;
+    }
+    .group-card h2 {
+        text-align: center;
+        color: white;
+    }
+    .nav-buttons {
+        margin-bottom: 20px;
+        display:flex;
+        justify-content: center;
+        color: white;
+    }
+    .nav-buttons div {
+        margin: 0 20px;
+    }
+    .nav-buttons span {
+        font-size: 25px;
+    }
+    .nav-buttons button {
+        height: 100%;
+        font-size: larger;
+        border-radius: 10px;
+    }
+    .nav-day {
+        width: 100px;
+        text-align: center;
+    }
+    .lineup-container {
+        display: flex;
+        flex-wrap: nowrap;
+        border:1px solid red;
+    }
+    #lineupContainer {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+    hr {
+        /*position: relative;
+        border: 1px solid white;
+        opacity: 0.5;*/
+    }
+    .band {
+        border: 1px solid black;
+        border-radius: 5px;
+        text-align: center;
+        padding:3px;
+        margin:3px;display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        position: relative;
+    }
+    .band:hover {
+        cursor: pointer;
+        border-color: white;
+    }
+    .band-name {
+        font-weight: bold;
+    }
+    #MAINSTAGE_1, .info-title-MAINSTAGE_1, .MAINSTAGE-1-resume-band {
+        background-color: #0055a5;
+    }
+    #MAINSTAGE_2, .info-title-MAINSTAGE_2, .MAINSTAGE-2-resume-band  {
+        background-color: #a6a19b;
+    }
+    #ALTAR, .info-title-ALTAR, .ALTAR-resume-band  {
+        background-color: #dc2829;
+    }
+    #TEMPLE, .info-title-TEMPLE, .TEMPLE-resume-band  {
+        background-color: #93a7b0;
+    }
+    #VALLEY, .info-title-VALLEY, .VALLEY-resume-band  {
+        background-color: #ce7c19;
+    }
+    #WARZONE, .info-title-WARZONE, .WARZONE-resume-band  {
+        background-color: #949b1a;
+    }
+    .MAINSTAGE-1, .info-style-MAINSTAGE-1 {
+        background-color: #9eaad3;
+    }
+    .MAINSTAGE-2, .info-style-MAINSTAGE-2 {
+        background-color: #d4d2cf;
+    }
+    .ALTAR, .info-style-ALTAR {
+        background-color: #f19e9e;
+    }
+    .TEMPLE, .info-style-TEMPLE {
+        background-color: #cbd4d8;
+    }
+    .VALLEY, .info-style-VALLEY {
+        background-color: #eabe97;
+    }
+    .WARZONE, .info-style-WARZONE {
+        background-color: #cecb93;
+    }
+    #groupInfo {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        height: 100%;
+        width: 300px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+        transition: left 0.3s ease-in-out;
+        box-shadow: rgb(0, 255, 255) 0px 5px 5px 0px !important;
+        padding-top: 15px;
+    }
+    .info-title {
+        border-radius: 15px;
+        color: white;
+        padding: 3px;
+        margin-bottom: 5px;
+    }
+    .info-style {
+        border-radius: 10px;
+        padding: 2px 6px;
+        font-size: small;
+        text-align: right;
+    }
+    .info-pays {
+        font-size: small;
+        padding: 5px;
+    }
+    .band-ffo {
+        padding: 0px 5px;;
+        font-size: 14px;
+        font-style: italic;
+        background-color: rgb(233, 233, 233);
+        border-radius: 3px;
+    }
+    .band-bio {
+        margin: 5px;
+    }
+    .band-avis {
+        margin-top: 20px;
+    }
+    .band-avis textarea{
+        height: 100px;
+        width: 95%;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: rgb(233, 233, 233);
+    }
+    .band-avis label {
+        font-size: 14px;
+    }
+    #groupInfoContent {
+        padding: 10px;
+        padding-top:30px;
+    }
+    .band-bio {
+        padding:0;
+        text-align: justify;
+        font-size: 14px;
+    }
+    #groupInfoContent h2 {
+        text-align: center;
+    }
+    #closeButton {
+        cursor: pointer;
+        font-size: 20px;
+        position: absolute;
+        top: 36px;
+        right: 10px;
+        border: 3px solid black;
+        border-radius: 10px;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+    }
+    .scene-image {
+        width: 50%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        margin-top: 5px;
+    }
+    #lineupContainer {
+        transition: width 0.9s ease-in-out; 
+    }   
+    #lineupContainer.group-info-open {
+        width: calc(100% - 300px);
+        margin-left: 300px;
+    }
+    .selected-group {
+        box-shadow:0px 0px 0px 5px rgb(255, 255, 255) inset !important;
+    }
+    .green-band {
+        background-color: rgb(69, 206, 69);
+        box-shadow:0px 0px 0px 5px rgb(55, 184, 12) inset;
+    }
+    .yellow-band {
+        background-color: yellow;
+        box-shadow:0px 0px 0px 5px rgb(218, 229, 58) inset;
+    }
+    .blue-band {
+        background-color: rgb(48, 154, 230);
+        box-shadow:0px 0px 0px 5px rgb(25, 113, 176) inset;
+    }
+    @keyframes adjustWidth {
+        from {
+            width: 100%;
+            margin-left: 0
+        }
+        to {
+            width: calc(100% - 300px);
+            margin-left: 300px;
+        }
+    }
+    .color-options {
+        margin-top: -13px;
+    }
+    .color-options label:hover {
+        cursor: pointer;
+    }
+    #reset-option {
+        color: white;
+    }
+    #reset-option:hover {
+        cursor: pointer;
+    }
+    input[type="radio"].color {
+        display: none;
+    }
+    input[type="radio"].color + label {
+        padding: 0.5rem 1rem;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        border-radius: 0.3rem;
+        color: #ffffff00;
+        background-color: #6c757d;
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in-out;
+    }
+    input[type="radio"].color.color-green + label {
+        background-color: #79af85;
+        border-color: #79af85;
+    }
+    input[type="radio"].color.color-green:hover + label {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+    input[type="radio"].color.color-green:checked + label {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    input[type="radio"].color.color-yellow + label {
+        background-color: #edfb80;
+        border-color: #edfb80;
+    }
+    input[type="radio"].color.color-yellow:hover + label {
+        background-color: #fff700;
+        border-color: #fff700;
+    }
+    input[type="radio"].color.color-yellow:checked + label {
+        background-color: #fff700;
+        border-color: #fff700;
+    }
+    input[type="radio"].color.color-blue + label {
+        background-color: #5592a5;
+        border-color: #5592a5;
+    }
+    input[type="radio"].color.color-blue:hover + label {
+        background-color: #0c7b9d;
+        border-color: #0c7b9d;
+    }
+    input[type="radio"].color.color-blue:checked + label {
+        background-color: #0c7b9d;
+        border-color: #0c7b9d;
+    }
+    input[type="radio"].color.color-empty + label{
+        background-color: black;
+        border-color: black;
+        color: white;
+    }
+    #playlistContainer {
+        position: fixed;
+        top: 0;
+        left: -180px;
+        width: 180px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: left 0.3s ease-in-out;
+    }
+    #playlistContent {
+        padding: 10px;
+    }
+    #playlistContent ul, #playlistContent span{
+        padding: 5px;
+        margin: 0;
+        font-size: small;
+        list-style: none;
+    }
+    #playlistContent h5{
+        font-weight: bold;
+        margin: 0;
+    }
+    #tabHandle {
+        background-color: white;
+        width: 30px;
+        right: -30px;
+        top: 40%;
+        position: absolute;
+        border-radius: 0 10px 10px 0;
+        cursor: pointer;
+    }
+    #tabHandle span{
+        margin: 5px;
+    }
+    .selected-option {
+        background-color : rgb(145, 145, 145) !important;
+    }
+    /* .blue-resume-band {
+        box-shadow:0px 0px 0px 5px  rgb(48, 154, 230) inset;
+    }
+    .green-resume-band {
+        box-shadow:0px 0px 0px 5px rgb(69, 206, 69) inset;
+    }
+    .yellow-resume-band {
+        box-shadow:0px 0px 0px 5px yellow inset;
+    } */
+    .day-column {
+        background-color: transparent;
+        border: none;
+    }
+    .day-column h2{
+        color: white;
+    }
+    .dot {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+    }
+    .blue-dot {
+        background-color: rgb(48, 154, 230);
+    }
+    .green-dot {
+        background-color: rgb(55, 184, 12);
+    }
+    .yellow-dot {
+        background-color: yellow;
+    }
+    .resume-band {
+        border: 1px solid black;
+        border-radius: 5px;
+        text-align: center;
+        padding:3px;
+        margin:3px;display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: space-between;
+        position: relative;
+        height: 60px !important;
+        color: white;
+        border-radius: 40px;
+        /* background: linear-gradient(-45deg, #86602B 25%, #6B4C22 25%, #6B4C22 50%, #86602B 50%, #86602B 75%, #6B4C22 75%, #6B4C22);
+        background-size:6px 6px; */
+    }
+    .resume-band:hover {
+        cursor: pointer;
+    }
+    .resume-scene-image {
+        width: 60px;
+        height: auto;
+        display: block;
+        margin: 0;
+    }
+    .MAINSTAGE-1-resume-band {
+        box-shadow:0px 0px 0px 2px #9eaad3 inset;
+    }
+    .MAINSTAGE-2-resume-band  {
+        box-shadow:0px 0px 0px 2px #d4d2cf inset;
+    }
+    .ALTAR-resume-band  {
+        box-shadow:0px 0px 0px 2px #f19e9e inset;
+    }
+    .TEMPLE-resume-band  {
+        box-shadow:0px 0px 0px 2px #cbd4d8 inset;
+    }
+    .VALLEY-resume-band  {
+        box-shadow:0px 0px 0px 2px #eabe97 inset;
+    }
+    .WARZONE-resume-band  {
+        box-shadow:0px 0px 0px 2px #cecb93 inset;
+    }
+    #resume-nav {
+        color:white;
+        text-align:center;
+    }
+    #resume-nav span{
+        color:black;
+        background-color: rgb(226, 226, 226);
+        border-radius: 25px;
+        padding: 5px 10px;
+    }
+    #resume-nav span:hover{
+        cursor: pointer;
+        border: none;
+        box-shadow:0px 0px 0px 2px #7a7a7a inset;
+        background-color: white;
+    }
+    .no-band {
+        text-align:center;
+        color:white;
+        margin-top:20px;
+        font-size: 14px;
+    }
+    #header {
+        height:35px;
+        background-color: rgb(24, 25, 27);
+        width: 100%;
+        margin: 0;
+        position: sticky;
+        top:0;
+        display:flex;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        z-index:13;
+    }
+    #header-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+        color: white;
+    }
+    #header-menu {
+    }
+    #options {
+        background-color:white;
+        width:300px;
+        z-index: 10;
+    }
+    #options hr {
+        width: 80%;
+    }
+    #options-menu {
+        height:35px;
+        display: flex;
+    }
+    .options-item {
+        /* outline: 1px solid rgb(51, 51, 51); */
+        background-color: rgb(24, 25, 27);
+        width: 100%;
+        text-align: center;
+        color:white;
+    }
+    .options-item span {
+        vertical-align: text-top;
+        font-size: 25px;
+        line-height: 1.3;
+    }
+    .options-item:hover {
+        background-color: rgb(208, 208, 208);
+        cursor: pointer;
+        color: black;
+    }
+    #options-window {
+        /* width: 100%; */
+        padding: 5px;
+        display: none;
+    }
+    #options-scenes {
+        display:flex;
+        font-size: 14px;
+    }
+    .options-scenes-column {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    .options-section {
+        display: none;
+    }
+</style>
+
 <body>
-<div id="options">
-    <div id="options-menu">
-        <div class="options-item" onclick="showOptions(0)"><span style="font-size: 36px !important;line-height: 0.8">&#9776;</span></div>
-        <div class="options-item" onclick="showOptions(1)"><span>&#9836;</span></div>
-        <div class="options-item" onclick="showOptions(2)"><span>&#x1F3A8;</span></div>
-    </div>
-    <div id="options-window">
-        <div class="options-section">
-            <div id="options-scenes">
-                <div class="options-scenes-column">
-                    <input type="checkbox" id="MAINSTAGE_1-input" name="#MAINSTAGE_1" checked />
-                    <label for="MAINSTAGE_1-input">MS1</label><br>
-                    <input type="checkbox" id="MAINSTAGE_2-input" name="MAINSTAGE_2-input" checked />
-                    <label for="MAINSTAGE_2-input">MS2</label>
+
+<div id="header">
+    <div id="header-title"><div><strong>- Hellfest 2024 -</strong> Running Order non-officiel</div></div>
+    <div id="header-menu">
+
+        <div id="options">
+            <div id="options-menu">
+                <div class="options-item" onclick="showOptions(0)"><span><i class="fa-solid fa-sort"></i></span></div>
+                <div class="options-item" onclick="showOptions(1)"><span><i class="fa-solid fa-music"></i></span></div>
+                <div class="options-item" onclick="showOptions(2)"><span><i class="fa-solid fa-paintbrush"></i></span></div>
+                <div class="options-item" onclick="displayResume()"><span><i class="fa-solid fa-list"></i></span></div>
+            </div>
+            <div id="options-window">
+                <div class="options-section">
+                    <div id="options-scenes">
+                        <div class="options-scenes-column">
+                            <input type="checkbox" id="MAINSTAGE_1-input" name="#MAINSTAGE_1" checked />
+                            <label for="MAINSTAGE_1-input">MS1</label><br>
+                            <input type="checkbox" id="MAINSTAGE_2-input" name="MAINSTAGE_2-input" checked />
+                            <label for="MAINSTAGE_2-input">MS2</label>
+                        </div>
+                        <div class="options-scenes-column">
+                            <input type="checkbox" id="WARZONE-input" name="WARZONE-input" checked />
+                            <label for="WARZONE-input">Warzone</label><br>
+                            <input type="checkbox" id="VALLEY-input" name="VALLEY-input" checked />
+                            <label for="VALLEY-input">Valley</label>
+                        </div>
+                        <div class="options-scenes-column">
+                            <input type="checkbox" id="ALTAR-input" name="ALTAR-input" checked />
+                            <label for="ALTAR-input">Altar</label><br>
+                            <input type="checkbox" id="TEMPLE-input" name="TEMPLE-input" checked />
+                            <label for="TEMPLE-input">Temple</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <input type="checkbox" id="band-order-input" name="band-order-input" />
+                    <label for="band-order-input">Inverser l'ordre des groupes</label><br>
                 </div>
-                <div class="options-scenes-column">
-                    <input type="checkbox" id="WARZONE-input" name="WARZONE-input" checked />
-                    <label for="WARZONE-input">Warzone</label><br>
-                    <input type="checkbox" id="VALLEY-input" name="VALLEY-input" checked />
-                    <label for="VALLEY-input">Valley</label>
+                <div id="options-playlists" class="options-section">
+                        <div id="playlistContent">
+                            <h5>Playlist du Jeudi</h5>
+                            <ul>
+                                <li><a href="#" target="_blank">Deezer</a></li>
+                                <li><a href="#" target="_blank">Spotify</a></li>
+                            </ul>
+                            <hr>
+                            <h5>Playlist 4 jours</h5>
+                            <ul>
+                                <li><a href="https://www.deezer.com/fr/playlist/12022669371" target="_blank">Deezer</a></li>
+                                <li><a href="https://open.spotify.com/playlist/7wPC59o4wROGkb0CMfioiP" target="_blank">Spotify</a></li>
+                                <li><a href="https://music.apple.com/fr/playlist/hellfest-2024/pl.u-e98lkMmUzD9yq1Y" target="_blank">Apple Music</a></li>
+                                <li><a href="https://music.youtube.com/playlist?list=PLJGGvdXJlXvBYEW34OsuV5XkVXXvN4YZT" target="_blank">Youtube Music</a></li>
+                                <li><a href="https://www.youtube.com/playlist?list=PL-_n4BHEzsy6uxvlt2vdL2vsVnXsiEI-b" target="_blank">Youtube (setlist récentes)</a></li>
+                            </ul>
+                            <hr>
+                            <span>Incollable ? Tester vos connaissances sur <a href="https://blinest.com/rooms/hellfest-2024" target="_blank">Blinest</a></span>
+                        </div>
                 </div>
-                <div class="options-scenes-column">
-                    <input type="checkbox" id="ALTAR-input" name="ALTAR-input" checked />
-                    <label for="ALTAR-input">Altar</label><br>
-                    <input type="checkbox" id="TEMPLE-input" name="TEMPLE-input" checked />
-                    <label for="TEMPLE-input">Temple</label>
+                <div id="options-colors" class="options-section">
+                    <div class="color-options">
+                        <input type="radio" name="color" class="color color-blue" id="blue" >
+                        <label for="blue">O</label>
+                        <input type="radio" name="color" class="color color-green" id="green">
+                        <label for="green">O</label>
+                        <input type="radio" name="color" class="color color-yellow" id="yellow" >
+                        <label for="yellow">O</label>
+                        <input type="radio" name="color" class="color color-empty" id="aucune" >
+                        <label for="aucune">Ø</label>
+                        <span id="reset-option" style="font-size:40px;color: black;" onclick="resetBands()">&#8634;</span>
+                    </div>
                 </div>
             </div>
-            <hr>
-            <input type="checkbox" id="band-order-input" name="band-order-input" />
-            <label for="band-order-input">Inverser l'ordre des groupes</label><br>
         </div>
-        <div id="options-playlists" class="options-section">
-                <div id="playlistContent">
-                    <h5>Playlist du Jeudi</h5>
-                    <ul>
-                        <li><a href="#" target="_blank">Deezer</a></li>
-                        <li><a href="#" target="_blank">Spotify</a></li>
-                    </ul>
-                    <hr>
-                    <h5>Playlist 4 jours</h5>
-                    <ul>
-                        <li><a href="https://www.deezer.com/fr/playlist/12022669371" target="_blank">Deezer</a></li>
-                        <li><a href="https://open.spotify.com/playlist/7wPC59o4wROGkb0CMfioiP" target="_blank">Spotify</a></li>
-                        <li><a href="https://music.apple.com/fr/playlist/hellfest-2024/pl.u-e98lkMmUzD9yq1Y" target="_blank">Apple Music</a></li>
-                        <li><a href="https://music.youtube.com/playlist?list=PLJGGvdXJlXvBYEW34OsuV5XkVXXvN4YZT" target="_blank">Youtube Music</a></li>
-                        <li><a href="https://www.youtube.com/playlist?list=PL-_n4BHEzsy6uxvlt2vdL2vsVnXsiEI-b" target="_blank">Youtube (setlist récentes)</a></li>
-                    </ul>
-                    <hr>
-                    <span>Incollable ? Tester vos connaissances sur <a href="https://blinest.com/rooms/hellfest-2024" target="_blank">Blinest</a></span>
-                </div>
-        </div>
-        <div id="options-colors" class="options-section">
-            <div class="color-options">
-                <input type="radio" name="color" class="color color-blue" id="blue" >
-                <label for="blue">O</label>
-                <input type="radio" name="color" class="color color-green" id="green">
-                <label for="green">O</label>
-                <input type="radio" name="color" class="color color-yellow" id="yellow" >
-                <label for="yellow">O</label>
-                <input type="radio" name="color" class="color color-empty" id="aucune" >
-                <label for="aucune">Ø</label>
-                <span id="reset-option" style="font-size:40px;color: black;" onclick="resetBands()">&#8634;</span>
-            </div>
-        </div>
+        
     </div>
+
+
 </div>
-<h1>Hellfest 2024</h1>
-<h3>Running Order non-officiel</h3>
 
 <div class="nav-buttons">
     <div>
@@ -472,6 +608,10 @@
     </div>
     <div>
         <button onclick="showNextDay()">&#8680;</button></div>
+</div>
+
+<div id="resume-nav" style="display:none;">
+    <span onclick="closeResume()">Revenir au RO</span>
 </div>
 
 <div id="lineupContainer"></div>
@@ -512,7 +652,6 @@
     const playlistContainer = document.getElementById('playlistContainer');
     const tabHandle = document.getElementById('tabHandle');
 
-
     if (!localStorage.allColoredBands) {
         allColoredBands = {
             "Jeudi": {
@@ -545,6 +684,8 @@
 
     opinions = JSON.parse(localStorage.opinions);
     var currentColor = "";
+    var resumeDisplayed = false;
+    var infoGroupDisplayed = false;
     const lineup = [
     {
         "GROUPE": "311",
@@ -4983,6 +5124,10 @@
         if (currentDayIndex === 0) { navButtons[0].style.visibility = "hidden";}
         if (currentDayIndex === 3) { navButtons[1].style.visibility = "hidden";}
         displayPlaylistLinks(currentDayIndex);
+        resumeDisplayed = false;
+        if (infoGroupDisplayed) {
+            closeGroupInfo()
+        }
         const lineupContainer = document.getElementById('lineupContainer');
         lineupContainer.innerHTML = '';
 
@@ -5080,7 +5225,7 @@
     }
 
     function showGroupInfo(nom) {
-
+        infoGroupDisplayed = true;
         band = findBand(nom)
 
         const groupInfo = document.getElementById('groupInfo');
@@ -5097,7 +5242,7 @@
             </div>
         `;
 
-        groupInfo.style.right = '0';
+        groupInfo.style.left = '0';
         lineupContainer.style.animation = 'none';
         lineupContainer.classList.add('group-info-open');
         if (document.getElementsByClassName('selected-group')[0]) {
@@ -5159,11 +5304,12 @@
     function closeGroupInfo() {
         const groupInfo = document.getElementById('groupInfo');
         const lineupContainer = document.getElementById('lineupContainer');
-        groupInfo.style.right = '-300px';
+        groupInfo.style.left = '-300px';
         const selectedGroup = document.getElementsByClassName('selected-group')[0];
         selectedGroup.classList.remove('selected-group');
         lineupContainer.classList.remove('group-info-open');
         lineupContainer.style.animation = 'none';
+        infoGroupDisplayed = false;
     }
 
     function findBand(name) {
@@ -5247,12 +5393,18 @@
         if (currentColor == "aucune") {currentColor = ""}
     })
     document.getElementById('band-order-input').addEventListener('change', function (event) {
-        displayLineupByDay(lineup, uniqueDays[currentDayIndex])
+        console.log("resume affiché : " + resumeDisplayed)
+        if (resumeDisplayed) {
+            displayResume()
+        } else {
+            displayLineupByDay(lineup, uniqueDays[currentDayIndex])
+        }
     })
     Array.from(document.getElementById('options-scenes').getElementsByTagName('input')).forEach((option => {
         option.addEventListener('change', function (event) {
+        if (!resumeDisplayed) {
             displayLineupByDay(lineup, uniqueDays[currentDayIndex])
-        })
+        }})
     }))
 
     function saveOpinion() {
@@ -5298,6 +5450,80 @@
         })
     }
 
+    function displayResume() {
+        resumeDisplayed = true;
+        if (infoGroupDisplayed) {
+            closeGroupInfo()
+        }
+        const lineupContainer = document.getElementById('lineupContainer');
+        const navigation = document.getElementsByClassName('nav-buttons')[0];
+        navigation.style.display = "none";
+        lineupContainer.innerHTML = '';
+
+        const resumeNav = document.getElementById('resume-nav');
+        resumeNav.style.display = 'block';
+
+        const colors = ['blue', 'green', 'yellow'];
+        const scenes = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
+        const imgSrcArray = []
+        imgSrcArray['MAINSTAGE 1'] = "https://forum.hellfest.fr/uploads/default/original/1X/723469cc76965f666beff04a4024eff673c444f3.png";
+        imgSrcArray['MAINSTAGE 2'] = "https://forum.hellfest.fr/uploads/default/original/1X/9ef344af22970ef79d91c1955cd40c2ddaa2b32d.png";
+        imgSrcArray['WARZONE'] = "https://forum.hellfest.fr/uploads/default/original/1X/fa9236925f7bd4a4f3b5f622071c425c8b1e04f6.png";
+        imgSrcArray['VALLEY'] = "https://forum.hellfest.fr/uploads/default/original/1X/bd43f51c3f066a6d96df719ec826021c0f5a864d.png";
+        imgSrcArray['ALTAR'] = "https://forum.hellfest.fr/uploads/default/original/1X/eede00d585209d337e8897aa24cbf0f2255bfdf2.png";
+        imgSrcArray['TEMPLE'] = "https://forum.hellfest.fr/uploads/default/original/1X/2f6183017decac3885da317500a664a884eccf84.png";
+
+        const allColoredBands = JSON.parse(localStorage.allColoredBands);
+
+        uniqueDays.forEach((day, index) => {
+            const dayColumn = document.createElement('div');
+            dayColumn.classList.add('group-card');
+            dayColumn.classList.add('day-column');
+
+            let coloredBandsThatDay = []
+            colors.forEach((color => {
+                allColoredBands[day][color].forEach((band => {
+                    let group = findBand(band)
+                    group.color = color
+                    coloredBandsThatDay.push(group)
+                }))
+            }))
+
+            if (document.getElementById('band-order-input').checked) {
+                coloredBandsThatDay.sort((a, b) => {
+                    return a.DEBUT.localeCompare(b.DEBUT);
+                });
+            } else {
+                coloredBandsThatDay.sort((a, b) => {
+                    return b.DEBUT.localeCompare(a.DEBUT);
+                });
+            }
+
+            const htmlContent = `
+                <h2>${day}</h2>
+                <div class="resume-day">
+                ${coloredBandsThatDay.map(group => `<div class="resume-band ${group.SCENE.replace(" ", "-")}-resume-band ${group.color}-resume-band" id="${group.GROUPE}" style="height:${getSize(group)}px;" onclick="showGroupInfo('${group.GROUPE}')"><img class="resume-scene-image" src="${imgSrcArray[group.SCENE]}"><span class="band-name">${group.GROUPE}</span><span class="dot ${group.color}-dot"></span></div>`).join('')}
+                </div>
+                `;
+            
+            dayColumn.innerHTML = htmlContent;
+            lineupContainer.appendChild(dayColumn);
+            if (coloredBandsThatDay.length === 0) {
+                document.getElementsByClassName("resume-day")[index].innerHTML = `<div class="no-band"><span>Aucun groupe séléctionné</span></div>`;
+            }
+        })
+
+    }
+
+    function closeResume() {
+        const navigation = document.getElementsByClassName('nav-buttons')[0];
+        navigation.style.display = "flex";
+        const resumeNav = document.getElementById('resume-nav');
+        resumeNav.style.display = 'none';
+        let day = uniqueDays[currentDayIndex]
+        displayLineupByDay(lineup, day)
+        resumeDisplayed = false;
+    }
 </script>
 
 </body>
