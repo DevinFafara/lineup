@@ -239,7 +239,7 @@
         background-color: rgb(48, 154, 230);
         box-shadow:0px 0px 0px 5px rgb(25, 113, 176) inset;
     }
-    @keyframes adjustWidth {
+    @keyframes adjustWidth1 {
         from {
             width: 100%;
             margin-left: 0
@@ -247,6 +247,16 @@
         to {
             width: calc(100% - 300px);
             margin-left: 300px;
+        }
+    }
+    @keyframes adjustWidth2 {
+        from {
+            width: calc(100% - 300px);
+            margin-left: 300px;
+        }
+        to {
+            width: 100%;
+            margin-left: 0
         }
     }
     .color-options {
@@ -283,6 +293,7 @@
         border-color: #1e7e34;
     }
     input[type="radio"].color.color-green:checked + label {
+        color: white;
         background-color: #28a745;
         border-color: #28a745;
     }
@@ -295,6 +306,7 @@
         border-color: #fff700;
     }
     input[type="radio"].color.color-yellow:checked + label {
+        color: white;
         background-color: #fff700;
         border-color: #fff700;
     }
@@ -307,6 +319,7 @@
         border-color: #0c7b9d;
     }
     input[type="radio"].color.color-blue:checked + label {
+        color: white;
         background-color: #0c7b9d;
         border-color: #0c7b9d;
     }
@@ -582,11 +595,11 @@
                 <div id="options-colors" class="options-section">
                     <div class="color-options">
                         <input type="radio" name="color" class="color color-blue" id="blue" >
-                        <label for="blue">O</label>
+                        <label for="blue">X</label>
                         <input type="radio" name="color" class="color color-green" id="green">
-                        <label for="green">O</label>
+                        <label for="green">X</label>
                         <input type="radio" name="color" class="color color-yellow" id="yellow" >
-                        <label for="yellow">O</label>
+                        <label for="yellow">X</label>
                         <input type="radio" name="color" class="color color-empty" id="aucune" >
                         <label for="aucune">Ø</label>
                         <span id="reset-option" style="font-size:40px;color: black;" onclick="resetBands()">&#8634;</span>
@@ -5251,7 +5264,7 @@
         const selectedGroup = document.getElementById(band.GROUPE);
         selectedGroup.classList.add('selected-group');
 
-        lineupContainer.style.animation = 'adjustWidth 0.3s ease-in-out';
+        lineupContainer.style.animation = 'adjustWidth1 0.3s ease-in-out';
         displayOpinion()
         saveOpinion()
     }
@@ -5309,6 +5322,7 @@
         selectedGroup.classList.remove('selected-group');
         lineupContainer.classList.remove('group-info-open');
         lineupContainer.style.animation = 'none';
+        lineupContainer.style.animation = 'adjustWidth2 0.3s ease-in-out';
         infoGroupDisplayed = false;
     }
 
