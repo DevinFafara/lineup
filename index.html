@@ -74,6 +74,7 @@
         display: flex;
         flex-wrap: nowrap;
         justify-content: center;
+        overflow: hidden;
     }
     hr {
         /*position: relative;
@@ -219,7 +220,17 @@
     }
     #lineupContainer {
         transition: width 0.9s ease-in-out; 
-    }   
+    } 
+    @media screen and (max-width: 700px) {
+        .resume-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .day-column {
+            max-width: 300px;
+            width: 80%;
+        }
+    }
     #lineupContainer.group-info-open {
         width: calc(100% - 300px);
         margin-left: 300px;
@@ -531,6 +542,46 @@
     .options-section {
         display: none;
     }
+    .mobile-container {
+        max-width: 300vw;
+        margin: auto;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 10px;
+    }
+    .slider {
+        display: flex;
+        width: 300vw;
+        position: relative;
+        transition: left 0.3s;
+    }
+
+    .slide {
+        width: 50vw;
+        /*height: 800px;*/
+        margin: 0px;
+        padding: 0 2vw;
+        font-size: 10px;
+    }
+    .slide-sub-container {
+        border-radius:15px;
+        padding: 5%;
+    }
+    body::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+    }
+    .slide h2 {
+        text-align: center;
+        color: white;
+    }
+    .slide img {
+        max-width:80px;
+    }
+    .other-scenes {
+        display: none;
+        height: 0;
+        width: 0;
+    }
 </style>
 
 <body>
@@ -664,6 +715,10 @@
 
     const playlistContainer = document.getElementById('playlistContainer');
     const tabHandle = document.getElementById('tabHandle');
+    const title = document.getElementById('header-title')
+    if (window.innerWidth < 800) {
+        title.innerText = "HF24 - RO non-officiel"
+    }
 
     if (!localStorage.allColoredBands) {
         allColoredBands = {
@@ -1123,7 +1178,7 @@
     {
         "GROUPE": "COSMIC PSYCHOS",
         "STYLE": "Garage Rock / Punk",
-        "Bio": "En un peu plus de deux décennies, BLACK STONE CHERRY a redéfini les standards du rock sudiste avec une recette riche en riffs à l’embonpoint fièrement assumé et aux refrains imparables. Si l’épaisseur des guitares fait office de maîtresse de maison et permet de s’ébrouer gaîment les cervicales, les pensionnaires du Kentucky laissent aussi la part belle à l’émotion sur le terrain des paroles et des atmosphères. Du tout bon !",
+        "Bio": "Garage rock, influences punk, blagues de magnitude 9,5 sur l’Échelle de l’Humour à 2 Balles, langage fleuri, traces de freins au fond du slip kangourou : tous les éléments sont réunis pour vivre un grand moment de culture australienne contemporaine ! Alors déposez le cerveau, remplissez votre gobelet, lâchez quelques caisses et venez vous trémousser sur le pré au son de la mélopée loufoque de ces Psychopathes Cosmiques !",
         "FFO": "Zeke, The Chats, Hard-Ons, The Spits",
         "PAYS": "Australie",
         "PARTICIPATIONS": "1ère participation 2024",
@@ -5145,7 +5200,6 @@
         lineupContainer.innerHTML = '';
 
         const filteredGroups = lineup.filter(group => group.DAY === day);
-        const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
         //const hours = ["02h", "01h", "00h", "23h", "22h", "21", "20h", "19h", "18h", "17h", "16h", "15h", "14h", "13h", "12h", "11h", "10h"];
 
 
@@ -5155,43 +5209,213 @@
             });
         }
 
-        scenesOrder.forEach(scene => {
-            const groupsInScene = filteredGroups.filter(group => group.SCENE === scene);
-            const sceneColumn = document.createElement('div');
-            sceneColumn.classList.add('group-card');
-            sceneColumn.setAttribute('id', scene.replace(" ", "_"));
 
-            switch (scene) {
-                case 'MAINSTAGE 1': 
-                    imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/723469cc76965f666beff04a4024eff673c444f3.png";
-                    break;
-                case 'MAINSTAGE 2': 
-                    imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/9ef344af22970ef79d91c1955cd40c2ddaa2b32d.png";
-                    break;
-                case 'TEMPLE': 
-                    imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/2f6183017decac3885da317500a664a884eccf84.png";
-                    break;
-                case 'ALTAR': 
-                    imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/eede00d585209d337e8897aa24cbf0f2255bfdf2.png";
-                    break;
-                case 'VALLEY': 
-                    imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/bd43f51c3f066a6d96df719ec826021c0f5a864d.png";
-                    break;
-                case 'WARZONE': 
-                    imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/fa9236925f7bd4a4f3b5f622071c425c8b1e04f6.png";
-                    break;
+        if (window.innerWidth < 800) {
+            const scenesOrder = ['ALTAR', 'TEMPLE', 'MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY'];
+            const mobileContainer = document.createElement('div');
+            mobileContainer.classList.add('mobile-container');
+            lineupContainer.appendChild(mobileContainer);
+            const slider = document.createElement('div');
+            slider.classList.add('slider');
+            mobileContainer.appendChild(slider);
+
+            ///TEST////
+            const otherScenes = document.createElement('div');
+            otherScenes.classList.add('other-scenes');
+            mobileContainer.appendChild(otherScenes);
+
+            let scenesInput = document.getElementById('options-scenes').getElementsByTagName('input');
+            let sceneToDisplay = []
+            let sceneNotToDisplay = []
+            Array.from(scenesInput).forEach(sceneInput => {
+                let sceneName = sceneInput.id.split("-")[0]
+                if (sceneInput.checked) {
+                    sceneToDisplay.push(sceneName)
+                } else {
+                    sceneNotToDisplay.push(sceneName)
+                }
+            })
+
+            if (sceneToDisplay.length > 3) {
+                let last = sceneToDisplay.pop()
+                sceneToDisplay.unshift(last)
             }
 
-            const htmlContent = `
-                <img class="scene-image" src="${imgSrc}">
-                <h2>${scene}</h2>
-                <div class="band-container">
-                    ${groupsInScene.map(group => `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;" onclick="showGroupInfo('${group.GROUPE}'),checkBandColor('${group.GROUPE}'),updateLocalStorage()"><span class="band-name">${group.GROUPE}</span></div>`).join('')}
-                </div>
-            `;
-            sceneColumn.innerHTML = htmlContent;
-            lineupContainer.appendChild(sceneColumn);
-        });
+            sceneToDisplay.forEach(scene => {
+                scene = scene.replace("_", " ")
+
+                const groupsInScene = filteredGroups.filter(group => group.SCENE === scene);
+                const slide = document.createElement('div');
+                slide.classList.add('slide');
+                slide.classList.add(`${scene.replace(' ', '_')}-slide`);
+                const slideSubContainer = document.createElement('div');
+                slideSubContainer.classList.add('slide-sub-container');
+                slideSubContainer.setAttribute('id', scene.replace(" ", "_"));
+
+                switch (scene) {
+                    case 'MAINSTAGE 1': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/723469cc76965f666beff04a4024eff673c444f3.png";
+                        break;
+                    case 'MAINSTAGE 2': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/9ef344af22970ef79d91c1955cd40c2ddaa2b32d.png";
+                        break;
+                    case 'TEMPLE': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/2f6183017decac3885da317500a664a884eccf84.png";
+                        break;
+                    case 'ALTAR': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/eede00d585209d337e8897aa24cbf0f2255bfdf2.png";
+                        break;
+                    case 'VALLEY': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/bd43f51c3f066a6d96df719ec826021c0f5a864d.png";
+                        break;
+                    case 'WARZONE': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/fa9236925f7bd4a4f3b5f622071c425c8b1e04f6.png";
+                        break;
+                }
+
+                const htmlContent = `
+                    <img class="scene-image" src="${imgSrc}">
+                    <h2>${scene}</h2>
+                    <div class="band-container">
+                        ${groupsInScene.map(group => `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;" onclick="showGroupInfo('${group.GROUPE}'),changeColor('${group.GROUPE}'),updateLocalStorage()"><span class="band-name">${group.GROUPE}</span></div>`).join('')}
+                    </div>
+                `;
+                slideSubContainer.innerHTML = htmlContent;
+                slider.appendChild(slide);
+                slide.appendChild(slideSubContainer);
+            });
+
+            sceneNotToDisplay.forEach(scene => {
+                scene = scene.replace("_", " ")
+
+                const groupsInScene = filteredGroups.filter(group => group.SCENE === scene);
+                const div = document.createElement('div');
+                div.classList.add(`${scene.replace(' ', '_')}-slide`);
+                div.setAttribute('id', scene.replace(" ", "_"));
+
+                const htmlContent = `
+                    <h2>${scene}</h2>
+                    <div class="band-container">
+                        ${groupsInScene.map(group => `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;"><span class="band-name">${group.GROUPE}</span></div>`).join('')}
+                    </div>
+                `;
+                div.innerHTML = htmlContent;
+                otherScenes.appendChild(div);
+            });
+
+
+            function sliderFunc() {
+                let sliderBox = document.querySelector('.slider');
+                let scenesNumber = sceneToDisplay.length
+                sliderBox.style.width = (scenesNumber * 50) + 'vw';
+                if (scenesNumber > 3) {
+                    sliderBox.style.left = '-50vw';
+                } else {
+                    sliderBox.style.left = '0vw';
+                }
+                let slides = document.getElementsByClassName('slide')
+                let slidesDisplayed = 0
+                Array.from(slides).forEach(slide => {
+                    let slideStyle = slide.currentStyle || window.getComputedStyle(slide);
+                    if (slideStyle.display === "block") {slidesDisplayed++}
+                })
+
+                function sliderNext() {
+                    setTimeout(() => {
+                        let child = sliderBox.querySelector(`.slide:nth-child(1)`);
+                        let cloneNode = child .cloneNode(true);
+                        sliderBox.appendChild(cloneNode);
+                        let currentLeftPosition = sliderBox.style.left ? parseFloat(sliderBox.style.left.replace('vw', '')) : 0;
+                        sliderBox.style.transition = 'none';
+                        let nextLeftPosition = currentLeftPosition + 50;
+                        sliderBox.style.left = `${nextLeftPosition}vw`;
+                        child.remove()
+                    }, 300);
+                    let currentLeftPosition = sliderBox.style.left ? parseFloat(sliderBox.style.left.replace('vw', '')) : 0;
+                    let nextLeftPosition = currentLeftPosition - 50;
+                    sliderBox.style.transition = 'left 0.2s';
+                    sliderBox.style.left = `${nextLeftPosition}vw`;
+                }
+
+                function sliderPrevious() {
+                    setTimeout(() => {
+                        let child = sliderBox.querySelector(`.slide:nth-last-child(1)`);
+                        let cloneNode = child .cloneNode(true);
+                        sliderBox.prepend(cloneNode);
+                        child.remove()
+                        let currentLeftPosition = sliderBox.style.left ? parseFloat(sliderBox.style.left.replace('vw', '')) : 0;
+                        sliderBox.style.transition = 'none';
+                        let nextLeftPosition = currentLeftPosition - 50;
+                        sliderBox.style.left = `${nextLeftPosition}vw`;
+                    }, 300);
+                    let currentLeftPosition = sliderBox.style.left ? parseFloat(sliderBox.style.left.replace('vw', '')) : 0;
+                    let nextLeftPosition = currentLeftPosition + 50;
+                    sliderBox.style.transition = 'left 0.2s';
+                    sliderBox.style.left = `${nextLeftPosition}vw`;
+                }
+
+                let touchstartX = 0
+                let touchendX = 0
+                    
+                function checkDirection() {
+                    if (touchendX < (touchstartX - 120)) sliderNext()
+                    if (touchendX > (touchstartX + 120)) sliderPrevious()
+                }
+
+                document.addEventListener('touchstart', e => {
+                    touchstartX = e.changedTouches[0].screenX
+                })
+                document.addEventListener('touchend', e => {
+                    touchendX = e.changedTouches[0].screenX
+                    checkDirection()
+                })
+
+            }
+
+            sliderFunc();
+
+
+        } else {
+            const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
+            scenesOrder.forEach(scene => {
+                const groupsInScene = filteredGroups.filter(group => group.SCENE === scene);
+                const sceneColumn = document.createElement('div');
+                sceneColumn.classList.add('group-card');
+                sceneColumn.setAttribute('id', scene.replace(" ", "_"));
+
+                switch (scene) {
+                    case 'MAINSTAGE 1': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/723469cc76965f666beff04a4024eff673c444f3.png";
+                        break;
+                    case 'MAINSTAGE 2': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/9ef344af22970ef79d91c1955cd40c2ddaa2b32d.png";
+                        break;
+                    case 'TEMPLE': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/2f6183017decac3885da317500a664a884eccf84.png";
+                        break;
+                    case 'ALTAR': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/eede00d585209d337e8897aa24cbf0f2255bfdf2.png";
+                        break;
+                    case 'VALLEY': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/bd43f51c3f066a6d96df719ec826021c0f5a864d.png";
+                        break;
+                    case 'WARZONE': 
+                        imgSrc = "https://forum.hellfest.fr/uploads/default/original/1X/fa9236925f7bd4a4f3b5f622071c425c8b1e04f6.png";
+                        break;
+                }
+
+                const htmlContent = `
+                    <img class="scene-image" src="${imgSrc}">
+                    <h2>${scene}</h2>
+                    <div class="band-container">
+                        ${groupsInScene.map(group => `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;" onclick="showGroupInfo('${group.GROUPE}'),changeColor('${group.GROUPE}'),updateLocalStorage()"><span class="band-name">${group.GROUPE}</span></div>`).join('')}
+                    </div>
+                `;
+                sceneColumn.innerHTML = htmlContent;
+                lineupContainer.appendChild(sceneColumn);
+            });
+        }
+
         checkScenesToDisplay()
         displayColoredBands()
         hideEmpty()
@@ -5241,6 +5465,9 @@
         infoGroupDisplayed = true;
         band = findBand(nom)
 
+        let color = getBandColor(nom)
+        console.log(color)
+
         const groupInfo = document.getElementById('groupInfo');
         const groupInfoContent = document.getElementById('groupInfoContent');
         const lineupContainer = document.getElementById('lineupContainer');
@@ -5269,7 +5496,19 @@
         saveOpinion()
     }
 
-    function checkBandColor(nom) {
+    function getBandColor(nom) {
+        let allColoredBands = JSON.parse(localStorage.allColoredBands);
+        for (const day in allColoredBands) {
+            for (const color in allColoredBands[day]) {
+                if (allColoredBands[day][color].includes(nom)) {
+                    return color;
+                }
+            }
+        }
+        return null;
+    }
+
+    function changeColor(nom) {
         band = findBand(nom)
         const selectedGroup = document.getElementById(band.GROUPE);
         selectedGroup.classList.add('selected-group');
@@ -5340,7 +5579,9 @@
             let className = color + "-band";
             savedData[day][color].forEach((band) => {
                 let bandElement = document.getElementById(band)
-                bandElement.classList.add(className);
+                if (bandElement) {
+                    bandElement.classList.add(className);
+                }
             })
         })
     }
@@ -5453,15 +5694,17 @@
     
     function checkScenesToDisplay() {
         let scenesInput = document.getElementById('options-scenes').getElementsByTagName('input');
-        Array.from(scenesInput).forEach(sceneInput => {
-            let sceneName = sceneInput.id.split("-")[0]
-            let scene = document.getElementById(sceneName)
-            if (sceneInput.checked) {
-                scene.style.display = "block";
-            } else {
-                scene.style.display = "none";
-            }
-        })
+        if (window.innerWidth >= 800) {
+            Array.from(scenesInput).forEach(sceneInput => {
+                let sceneName = sceneInput.id.split("-")[0]
+                let scene = document.getElementById(sceneName)
+                if (sceneInput.checked) {
+                    scene.style.display = "block";
+                } else {
+                    scene.style.display = "none";
+                }
+            })
+        }
     }
 
     function displayResume() {
@@ -5470,6 +5713,7 @@
             closeGroupInfo()
         }
         const lineupContainer = document.getElementById('lineupContainer');
+        lineupContainer.classList.add('resume-container');
         const navigation = document.getElementsByClassName('nav-buttons')[0];
         navigation.style.display = "none";
         lineupContainer.innerHTML = '';
