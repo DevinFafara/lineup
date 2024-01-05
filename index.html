@@ -4381,6 +4381,7 @@
       checkScenesToDisplay()
       displayColoredBands()
       hideEmpty()
+      checkIfMustDisplayHours()
     }
 
     function getSize(group) {
@@ -4712,6 +4713,18 @@
           } else {
             scene.style.display = "none";
           }
+        })
+      }
+    }
+
+    function checkIfMustDisplayHours() {
+      if (document.getElementById('display-hours-input').checked) {
+        Array.from(document.getElementsByClassName('hours')).forEach(element => {
+          element.style.display = "none";
+        })
+      } else {
+        Array.from(document.getElementsByClassName('hours')).forEach(element => {
+          element.style.display = "block";
         })
       }
     }
