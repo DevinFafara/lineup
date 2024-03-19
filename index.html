@@ -855,10 +855,10 @@
                 <label for="VALLEY-input">Valley</label>
               </div>
               <div class="options-scenes-column">
-                <input type="checkbox" id="ALTAR-input" name="ALTAR-input" checked />
-                <label for="ALTAR-input">Altar</label><br>
                 <input type="checkbox" id="TEMPLE-input" name="TEMPLE-input" checked />
-                <label for="TEMPLE-input">Temple</label>
+                <label for="TEMPLE-input">Temple</label><br>
+                <input type="checkbox" id="ALTAR-input" name="ALTAR-input" checked />
+                <label for="ALTAR-input">Altar</label>
               </div>
             </div>
             <hr>
@@ -4325,7 +4325,7 @@
 
     lineup.sort((a, b) => {
       const daysOrder = ['Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-      const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
+      const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'TEMPLE', 'ALTAR'];
 
       if (a.DAY !== b.DAY) {
         return daysOrder.indexOf(a.DAY) - daysOrder.indexOf(b.DAY);
@@ -4399,7 +4399,7 @@
 
 
       if (window.innerWidth < 800) {
-        const scenesOrder = ['ALTAR', 'TEMPLE', 'MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY'];
+        const scenesOrder = ['TEMPLE', 'ALTAR', 'MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY'];
         const mobileContainer = document.createElement('div');
         mobileContainer.classList.add('mobile-container');
         lineupContainer.appendChild(mobileContainer);
@@ -4564,7 +4564,7 @@
 
 
       } else {
-        const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
+        const scenesOrder = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'TEMPLE', 'ALTAR'];
         scenesOrder.forEach(scene => {
           const groupsInScene = filteredGroups.filter(group => group.SCENE === scene);
           const sceneColumn = document.createElement('div');
@@ -5000,7 +5000,7 @@
       resumeNav.style.display = 'block';
 
       const colors = ['blue', 'green', 'yellow'];
-      const scenes = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'ALTAR', 'TEMPLE'];
+      const scenes = ['MAINSTAGE 1', 'MAINSTAGE 2', 'WARZONE', 'VALLEY', 'TEMPLE', 'ALTAR'];
       const imgSrcArray = []
       imgSrcArray['MAINSTAGE 1'] = "https://forum.hellfest.fr/uploads/default/original/1X/723469cc76965f666beff04a4024eff673c444f3.png";
       imgSrcArray['MAINSTAGE 2'] = "https://forum.hellfest.fr/uploads/default/original/1X/9ef344af22970ef79d91c1955cd40c2ddaa2b32d.png";
