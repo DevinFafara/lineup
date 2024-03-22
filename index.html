@@ -112,6 +112,7 @@
     /*padding: 3px;*/
     /*margin: 0 3px;*/
     display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -612,7 +613,10 @@
   .resume-band:hover {
     cursor: pointer;
   }
-
+  .resume-band div {
+    display: flex;
+    flex-direction: column;
+  }
   .resume-scene-image {
     width: 60px;
     height: auto;
@@ -4465,7 +4469,17 @@
                     <h2>${scene}</h2>
                     <div class="band-container">
                         ${hours.map((hour, i) => `<div class="hours" style="position: absolute;top:${(i * 60) - 5}px; left: 45%;color:white;opacity:0.7;"><span>${hour}</span></div>`).join('')}
-                        ${groupsInScene.map(group => `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;top:${getPos(group)}px;" onclick="showGroupInfo('${group.GROUPE}'),changeColor('${group.GROUPE}'),updateLocalStorage()"><span class="band-name">${group.GROUPE}</span></div>`).join('')}
+                        ${groupsInScene.map(group => {
+                            let debutDate = new Date(`1970-01-01T${group.DEBUT}:00`);
+                            debutDate.setHours(debutDate.getHours() + 3);
+                            let debutStr = debutDate.toISOString().substr(11, 5);
+
+                            let finDate = new Date(`1970-01-01T${group.FIN}:00`);
+                            finDate.setHours(finDate.getHours() + 3);
+                            let finStr = finDate.toISOString().substr(11, 5);
+
+                            return `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;top:${getPos(group)}px;" onclick="showGroupInfo('${group.GROUPE}'),changeColor('${group.GROUPE}'),updateLocalStorage()"><span class="band-name">${group.GROUPE}</span><span>${debutStr} - ${finStr}</span></div>`;
+                        }).join('')}
                     </div>
                 `;
           slideSubContainer.innerHTML = htmlContent;
@@ -4597,7 +4611,17 @@
                     <h2>${scene}</h2>
                     <div class="band-container">
                         ${hours.map((hour, i) => `<div class="hours" style="position: absolute;top:${(i * 60) - 5}px; left: 45%;color:white;opacity:0.7;"><span>${hour}</span></div>`).join('')}
-                        ${groupsInScene.map(group => `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;top:${getPos(group)}px;" onclick="showGroupInfo('${group.GROUPE}'),changeColor('${group.GROUPE}'),updateLocalStorage()"><span class="band-name">${group.GROUPE}</span></div>`).join('')}
+                        ${groupsInScene.map(group => {
+                            let debutDate = new Date(`1970-01-01T${group.DEBUT}:00`);
+                            debutDate.setHours(debutDate.getHours() + 3);
+                            let debutStr = debutDate.toISOString().substr(11, 5);
+
+                            let finDate = new Date(`1970-01-01T${group.FIN}:00`);
+                            finDate.setHours(finDate.getHours() + 3);
+                            let finStr = finDate.toISOString().substr(11, 5);
+
+                            return `<div class="band ${scene.replace(" ", "-")}" id="${group.GROUPE}" style="height:${getSize(group)}px;top:${getPos(group)}px;" onclick="showGroupInfo('${group.GROUPE}'),changeColor('${group.GROUPE}'),updateLocalStorage()"><span class="band-name">${group.GROUPE}</span><span>${debutStr} - ${finStr}</span></div>`;
+                        }).join('')}
                     </div>
                 `;
           sceneColumn.innerHTML = htmlContent;
@@ -5041,7 +5065,17 @@
         const htmlContent = `
                 <h2>${day}</h2>
                 <div class="resume-day">
-                ${coloredBandsThatDay.map(group => `<div class="resume-band ${group.SCENE.replace(" ", "-")}-resume-band ${group.color}-resume-band" id="${group.GROUPE}" style="height:${getSize(group)}px;" onclick="showGroupInfo('${group.GROUPE}')"><img class="resume-scene-image" src="${imgSrcArray[group.SCENE]}"><span class="band-name">${group.GROUPE}</span><span class="dot ${group.color}-dot"></span></div>`).join('')}
+                  ${coloredBandsThatDay.map(group => {
+                      let debutDate = new Date(`1970-01-01T${group.DEBUT}:00`);
+                      debutDate.setHours(debutDate.getHours() + 3);
+                      let debutStr = debutDate.toISOString().substr(11, 5);
+
+                      let finDate = new Date(`1970-01-01T${group.FIN}:00`);
+                      finDate.setHours(finDate.getHours() + 3);
+                      let finStr = finDate.toISOString().substr(11, 5);
+
+                      return `<div class="resume-band ${group.SCENE.replace(" ", "-")}-resume-band ${group.color}-resume-band" id="${group.GROUPE}" style="height:${getSize(group)}px;" onclick="showGroupInfo('${group.GROUPE}')"><img class="resume-scene-image" src="${imgSrcArray[group.SCENE]}"><div><span class="band-name">${group.GROUPE}</span><span>${debutStr} - ${finStr}</span></div><span class="dot ${group.color}-dot"></span></div>`;
+                  }).join('')}
                 </div>
                 `;
 
